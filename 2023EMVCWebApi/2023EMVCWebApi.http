@@ -1,0 +1,6 @@
+@_2023EMVCWebApi_HostAddress = http://localhost:5159
+
+GET {{_2023EMVCWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
