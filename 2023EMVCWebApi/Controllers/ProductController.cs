@@ -30,5 +30,6 @@ namespace _2023EMVCWebApi.Controllers
 
             return Ok(product);
         }
+
     }
 }
