@@ -30,6 +30,19 @@ namespace _2023EMVCWebApi.Controllers
 
             return Ok(product);
         }
+        [HttpPut]
+        public async Task<IActionResult> update(Product product)
+        {
+            var existing = _context.Products.AsNoTracking().FirstOrDefault(x => x.Id == product.Id);
+            if (existing == null)
+            {
+                return BadRequest("product not found.");
+            }
+            _context.Products.Update(product);
+            _context.SaveChanges();
+       
+        return Ok(product);
+        }
 
     }
 }
