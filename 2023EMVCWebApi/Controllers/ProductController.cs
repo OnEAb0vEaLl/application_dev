@@ -46,7 +46,7 @@ namespace _2023EMVCWebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> delete(int productId)
+        public async Task<IActionResult> Delete(int productId)
         {
             var existing = _context.Products.FirstOrDefault(x => x.Id == productId);
             if (existing == null)
