@@ -10,6 +10,7 @@ namespace _2023EMVCWebApi.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private int productId;
 
         public ProductController(ApplicationDbContext context)
         {
@@ -44,5 +45,19 @@ namespace _2023EMVCWebApi.Controllers
         return Ok(product);
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> delete(int productId)
+        {
+            var existing = _context.Products.FirstOrDefault(x => x.Id == productId);
+            if (existing == null)
+            {
+                return BadRequest("product not found.");
+            }
+            _context.Products.Remove(existing);
+            _context.SaveChanges();
+
+            return Ok("delete successfully!!!");
+
+        }
     }
 }
