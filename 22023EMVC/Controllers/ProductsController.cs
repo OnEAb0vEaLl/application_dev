@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _22023EMVC.Data;
 using _22023EMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _22023EMVC.Controllers
 {
+    [Authorize]
+
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
