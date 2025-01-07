@@ -1,6 +1,7 @@
 using _22023EMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using _22023EMVC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultUI()
     .AddDefaultTokenProviders()
     .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,5 +44,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 
 });
+
+app.MapHub<BasicChatHub>("/hub/basicchat");
 
 app.Run();
