@@ -46,7 +46,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.js"></script>
 <script>
 
-    var connectionChat = new signalR.HubConnectionBuilder().withUrl("/hubs/basicchat").build();
+    var connectionChat = new signalR.HubConnectionBuilder().withUrl("/hubs/basicchat").configureLogging(signalR.LogLevel.Debug).build();
 
     document.getElementById("sendMessage").disabled = false;
     connectionChat.on("MessageReceived", function (user, message) {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using _22023EMVC.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
@@ -8,15 +9,15 @@ namespace _22023EMVC
 {
     public class BasicChatHub: Hub
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         
-        public BasicChatHub(UserManager<IdentityUser> userManager)
+        public BasicChatHub(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
         public async Task<IList<string>> GetUserRoles(string userId)
         {
-            var user= await _userManager.FindByNameAsync(userId);
+            var user= await _userManager.FindByIdAsync(userId);
             var roles = await _userManager.GetRolesAsync(user);
             return roles;
         }

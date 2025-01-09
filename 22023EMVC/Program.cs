@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -17,7 +18,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultUI()
     .AddDefaultTokenProviders()
     .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -45,6 +45,6 @@ app.UseEndpoints(endpoints =>
 
 });
 
-app.MapHub<BasicChatHub>("/hub/basicchat");
+app.MapHub<BasicChatHub>("/hubs/basicchat").AllowAnonymous();
 
 app.Run();
