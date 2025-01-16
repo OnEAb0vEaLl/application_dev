@@ -17,39 +17,55 @@
             <th>Category</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>Action</th>
         </tr>
     </thead>
 </table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $("productTable").DataTable({
-            "processing": true,
-            "serverSide": false,
-            "filter": true,
-            "orderMulti": false,
-            "pageLength": 5,
-            
-            "ajax": {
-                "url": "/Product/GetAll",
-                "type": "GET",
-                "datatype": "json"
-            },
 
-            "columnDefs":
-            [{
-                "targets": [0],
-                "visible": true,
-                "searchable": true
-            }],
-            "columns":
-            [
-                    {"data": "Name", "name": "Name", "autoWidth": true},
-            ]
-        });
+<script type="text/javascript">
+    var js = jQuery.noConflict(true);
+    js(document).ready(function () {
+        LoadListing();
     });
+    function FunEdit(element) {
+        var id = $(element).closest('tr').find('input[type=hidden]').val();
+        window.location.href = "/Products/Edit"+id;
+
+    }
+    function FunRemove(element) {
+        var id = $(element).closest('tr').find('input[type=hidden]').val();
+        window.location.href = "/Products/Delete"+id;
+    }
+    function LoadListing(){
+        var productData = [];
+        $.ajax({
+            type: "POST",
+            url: "/Products/GetAll",
+            async: false,
+            success: function (data){ 
+                debugger;
+                console.log(data)
+                $.each(data, function (key, value) {
+                    var editbtn = "<a onclick='FunEdit(this)' class= 'btn btn-primary'>Edit</a>";
+                    var removebtn = " <a onclick='FunRemove(this)' class = 'btn btn-danger'>Remove</a>";
+                    var hdn = "<input type='hidden' value=" + value.id + " />";
+                    var action = editbtn + " | " + removebtn + hdn;
+                    productData.push([value.name, value.price, value.category, value.description, value.quantity, action])
+
+                })
+            },
+            failure: function (err) {
+
+            }
+        });
+
+        js('#productTable').DataTable({
+            data: productData
+        });
+    }
 </script>

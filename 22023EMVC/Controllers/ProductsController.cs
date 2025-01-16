@@ -27,6 +27,10 @@ namespace _22023EMVC.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
+        public async Task<IActionResult> GetAll()
+        {
+            return Json(await _context.Products.ToListAsync());
+        }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
