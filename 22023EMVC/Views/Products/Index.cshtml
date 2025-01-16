@@ -34,12 +34,12 @@
     });
     function FunEdit(element) {
         var id = $(element).closest('tr').find('input[type=hidden]').val();
-        window.location.href = "/Products/Edit"+id;
+        window.location.href = "/Products/Edit/"+id;
 
     }
     function FunRemove(element) {
         var id = $(element).closest('tr').find('input[type=hidden]').val();
-        window.location.href = "/Products/Delete"+id;
+        window.location.href = "/Products/Delete/"+id;
     }
     function LoadListing(){
         var productData = [];
