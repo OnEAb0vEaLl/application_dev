@@ -40,9 +40,15 @@
             <ul id="messagesList"></ul>
         </div>
     </div>
+    <div class="card">
+        <div class="number">
+            <h5>Total Users</h5>
+        </div>
+        <div class="total" id="totalUsersCount">.</div>
+    </div>
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.js"></script>
 <script>
 
@@ -115,4 +121,5 @@
         connectionChat.send("JoinGroup", sender);
         document.getElementById("sendMessage").disabled = false;
     });
+
 </script>
