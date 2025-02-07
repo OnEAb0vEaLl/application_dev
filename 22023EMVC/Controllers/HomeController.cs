@@ -83,6 +83,11 @@ namespace _22023EMVC.Controllers
             var roles = await _userManager.GetRolesAsync(user);
             return roles;
         }
+        [HttpGet("total-user")]
+        public async Task<int> RegisteredUserCount()
+        {
+            return _userManager.Users.Count();
+        }
 
         [Authorize(Roles ="Admin")]
         public IActionResult Privacy()

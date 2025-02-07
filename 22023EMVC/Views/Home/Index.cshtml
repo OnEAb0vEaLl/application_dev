@@ -122,4 +122,22 @@
         document.getElementById("sendMessage").disabled = false;
     });
 
+    $(document).ready(function () {
+        GetTotalUsersCount();
+    });
+
+    async function GetTotalUsersCount() {
+        await $.ajax({
+            url: '/total-user',
+            method: 'GET',
+            success: function (response) {
+                var data = JSON.parse(response);
+                $('#totalUsersCount').html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    };
+
 </script>
