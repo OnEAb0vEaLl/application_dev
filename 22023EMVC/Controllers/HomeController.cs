@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 
 namespace _22023EMVC.Controllers
 {
@@ -39,6 +40,14 @@ namespace _22023EMVC.Controllers
                 model.UserRoles = roles;
 
             }
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            var products = _db.Products.ToList();
+            foreach ( var p in products )
+            {
+                dataPoints.Add(new DataPoint(p.Name, p.Quantity));
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View(model);
         }
         [HttpGet("SendMessageToAll")]
